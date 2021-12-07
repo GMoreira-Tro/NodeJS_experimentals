@@ -9,6 +9,7 @@ const express_module = require("express")
 const express = express_module()
 const handlebars = require("express-handlebars")
 const bodyParser = require("body-parser")
+const postagens_table = require("./Postagens_table")
 //#endregion
 
 //#region Valores constantes
@@ -41,7 +42,30 @@ express.get("/cad", (req, res) =>
 })
 express.post("/post", (req,res) =>
 {
-    res.send(req.body.A1 + "\n" + req.body.A2)
+    postagens_table.create
+    ({
+        Título: req.body.A1,
+        Conteúdo: req.body.A2
+    }).then(() => res.redirect("/")).catch(err =>
+    {
+        res.send(err)
+    })
+})
+express.get("/", (req,res) =>
+{
+    postagens_table.findAll().then((posts) =>
+    {
+        res.render("Postagens", 
+        {
+            posts: posts
+        })
+        console.log(posts.length)
+    })
+})
+express.get("/delete/:id", (req,res) =>
+{
+    postagens_table.destroy({where: {'id': req.params.id}})
+    .then(() => res.send("Deu")).catch((error) => res.send("não deu"))
 })
 //#endregion
 
