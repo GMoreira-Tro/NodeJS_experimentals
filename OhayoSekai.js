@@ -1,6 +1,4 @@
 //#region Módulos
-const APISample = require("./APISample")
-const http = require('http')
 const express_module = require("express")
 const express = express_module()
 //#endregion
@@ -9,8 +7,7 @@ const express = express_module()
 const PORT = 8081
 //#endregion
 
-APISample.something()
-APISample.something2(3.1415926537)
+console.log("Started server...")
 
 express.get("/Aqui", (_req,res) => 
 {

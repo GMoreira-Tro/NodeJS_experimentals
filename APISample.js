@@ -15,3 +15,5 @@ module.exports = class API
         console.log("sla, mano: " + a);
     }
 }
+
+console.log("qq vai acontecer?")
